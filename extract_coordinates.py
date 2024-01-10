@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import pickle
 
-# img_path = 'countors.png'
+
 
 def extract_coordinates(img_path, path_to_certificate):
     # resize image with contours
@@ -76,4 +76,3 @@ def extract_coordinates(img_path, path_to_certificate):
     return pickle_coordinates
 
 
-# coords = extract_coordinates("countors.png")

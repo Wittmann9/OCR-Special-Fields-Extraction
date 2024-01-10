@@ -81,11 +81,7 @@ def preprocess_image(path_to_img):
   return gray
   # return rotated
 
-# preprocessed = preprocess_image("image_10.png")
 
-# cv2.imshow("preprocessed", preprocessed)
-# cv2.waitKey(0)   #wait for a keyboard input
-# cv2.destroyAllWindows()
 
 
 
