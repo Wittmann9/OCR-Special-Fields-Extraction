@@ -4,9 +4,12 @@ try:
 except ImportError:
   import Image
 
-def pdf_to_img(pdf_name, poppler_path):
-  image = convert_from_path(f"{pdf_name}.pdf", 350, poppler_path=poppler_path)
+def pdf_to_img(pdf_name):
+  image = convert_from_path(f"{pdf_name}.pdf", 350)
   image[0].save(f"{pdf_name}.jpg", "JPEG")
   return f"{pdf_name}.jpg"
+
+
+
 
 

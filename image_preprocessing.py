@@ -9,7 +9,7 @@ try:
 except ImportError:
   import  Image
 
-os.mkdir('resized_images')
+os.makedirs('resized_images', exist_ok=True)
 
 def set_image_dpi(image_path):
   im = Image.open(image_path)
@@ -20,7 +20,7 @@ def set_image_dpi(image_path):
 
   # temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=’.png’)
   # temp_filename = temp_file.name
-  img = im_resized.save(f"resized_images/resized_{image_path}", dpi=(300, 300))
+  img = im_resized.save(f"resized_images/resized_{image_path}".replace("/", "-"), dpi=(300, 300))
   return im_resized
 
 def sharp_mask(image, kernel_size=(5, 5), sigma=1.0, amount=1.0, threshold=0):
@@ -53,7 +53,7 @@ def preprocess_image(path_to_img):
   #resize image
   resized = set_image_dpi(path_to_img)
   width, length = Image.open(path_to_img).size
-  resized = cv2.imread(f"resized_images/resized_{path_to_img}")
+  resized = cv2.imread(f"resized_images/resized_{path_to_img}".replace("/", "-"))
 
   #enlarge image
   up_points = (width*2, length*2)
@@ -81,7 +81,7 @@ def preprocess_image(path_to_img):
   return gray
   # return rotated
 
-preprocessed = preprocess_image("image_10.png")
+# preprocessed = preprocess_image("image_10.png")
 
 # cv2.imshow("preprocessed", preprocessed)
 # cv2.waitKey(0)   #wait for a keyboard input

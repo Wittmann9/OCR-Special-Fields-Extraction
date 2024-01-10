@@ -9,9 +9,10 @@ import pickle
 import cv2
 import os
 import torch
+import json
 
 
-os.mkdir('temp')
+os.makedirs('temp', exist_ok=True)
 def read_text(image_name, reader_name, in_line=True):
 
   # Read the data
@@ -25,14 +26,13 @@ if __name__ == '__main__':
     # See PyCharm help at https://www.jetbrains.com/help/pycharm/
     parser = argparse.ArgumentParser()
     parser.add_argument('--pdf_name', type=str, default="Inspection_Certificate")
-    parser.add_argument('--poppler_path', type=str, default="venv//Lib//site-packages//poppler-23.11.0//Library//bin")
-    parser.add_argument('--gpu_availability', type=bool, default=True)
+    parser.add_argument('--gpu_availability', type=str, default="true", choices=['true', 'false'])
     args = parser.parse_args()
 
+    gpu_availability = args.gpu_availability == "true"
+    reader_en_ch = easyocr.Reader(['en', 'ch_sim'], gpu=gpu_availability)
 
-    reader_en_ch = easyocr.Reader(['en', 'ch_sim'], gpu=args.gpu_availability)
-
-    path_to_certificate_img = pdf_to_img(args.pdf_name, args.poppler_path)
+    path_to_certificate_img = pdf_to_img(args.pdf_name)
     crop_certificate(path_to_certificate_img)
     pickled_coordinates = extract_coordinates("cropped_countors.jpg", 'cropped_certificate.jpg')
 
@@ -60,4 +60,6 @@ if __name__ == '__main__':
             ocred_text.append(text)
         # print(text)
     print(ocred_text)
+    with open('ocred_fields.json', 'w') as file:
+        json.dump(ocred_text, file)
 
