@@ -1,4 +1,4 @@
-# CONXAI VDA Intern interview assignment - 2
+# Test-task description
 
 This code presents the solution for automatic extraction of contents in the fiels of interest. The algorithm utilizes given example of inspection certificate. 
 It does preprocess inspection certificate and it's example, so the images are aligned. Then it extracts the coordinates of blue boxes with relevant fields from *example*, and crops *inspection certificate* using those coordinates. Each cropped image is then preprocesses and EasyOCR is used to extract the content.
